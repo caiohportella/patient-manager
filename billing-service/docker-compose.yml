@@ -1,0 +1,20 @@
+services:
+  billing-service:
+    image: billing-service:latest
+    build: .
+    container_name: billing-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://billing-service-db:5432/db
+      SPRING_DATASOURCE_USERNAME: admin_user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_SQL_INIT_MODE: always
+    ports:
+      - "4001:4001"
+      - "9001:9001"
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
