@@ -3,16 +3,10 @@ package com.caiohportella.pm.patientservice.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.caiohportella.pm.patientservice.dto.PagedPatientResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.caiohportella.pm.patientservice.dto.PatientRequestDTO;
 import com.caiohportella.pm.patientservice.dto.PatientResponseDTO;
@@ -35,8 +29,14 @@ public class PatientController {
 
     @GetMapping
     @Operation(summary = "Get all patients", description = "Retrieve a list of all patients")
-    public ResponseEntity<List<PatientResponseDTO>> getAllPatients() {
-        List<PatientResponseDTO> patients = patientService.getAllPatients();
+    public ResponseEntity<PagedPatientResponseDTO> getPatients(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "asc") String sort,
+            @RequestParam(defaultValue = "name") String sortField,
+            @RequestParam(defaultValue = "") String searchValue
+    ) {
+        PagedPatientResponseDTO patients = patientService.getPatients(page, size, sort, sortField, searchValue);
 
         return ResponseEntity.ok().body(patients);
     }
