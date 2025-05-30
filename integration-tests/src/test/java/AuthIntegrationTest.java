@@ -17,7 +17,7 @@ public class AuthIntegrationTest {
 
     @Test
     public void shouldReturnOkWithValidToken() {
-        String token = AuthTestHelper.getAuthToken("testuser@test.com", "password123");
+        String token = AuthTestHelper.getAuthToken();
 
         System.out.printf("Generated token: %s", token);
     }

@@ -1,14 +1,13 @@
 import static io.restassured.RestAssured.given;
 
 public class AuthTestHelper {
-    public static String getAuthToken(String email, String password) {
+    public static String getAuthToken() {
         String loginPayload = """
             {
-                "email": "%s",
-                "password": "%s"
+                "email": "testuser@test.com",
+                "password": "password123"
             }
-            """
-                .formatted(email, password);
+            """;
 
         return given()
                 .contentType("application/json")
