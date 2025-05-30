@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +37,20 @@ public class PatientService {
         this.kafkaProducer = kafkaProducer;
     }
 
+    @Cacheable(
+            value = "patients",
+            key = "#page + '-' + #size + '-' + #sort + '-' + #sortField",
+            condition = "#searchValue == ''"
+    )
     public PagedPatientResponseDTO getPatients(int page, int size, String sort, String sortField, String searchValue) {
+        System.out.println("[REDIS]: Cached miss - fetching from DB");
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+
         Pageable pageable = PageRequest.of(
                 page - 1, size, sort.equalsIgnoreCase("desc")
                         ? Sort.by(sortField).descending()
