@@ -4,10 +4,10 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "John Doe Kafka Test",
-  "email": "kafka_test11@example.com",
-  "address": "123 main street22",
-  "dateOfBirth": "1995-09-09",
-  "registeredDate": "2024-11-28"
+  "name": "Caio H. Portella",
+  "email": "portella@chp.com",
+  "address": "666 Acacia Avenue",
+  "dateOfBirth": "2001-06-02",
+  "registeredDate": "2025-05-28"
 }
 ###
